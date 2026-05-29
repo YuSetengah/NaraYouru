@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA1SXy_noS9WukV9ELIXe1v7CinJ8GytxY",
+  authDomain: "naraxyouru.firebaseapp.com",
+  projectId: "naraxyouru",
+  storageBucket: "naraxyouru.firebasestorage.app",
+  messagingSenderId: "592144618156",
+  appId: "1:592144618156:web:f9346ee5100da01dc2c509",
+  measurementId: "G-QH082MNJ9N"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  window._db = getFirestore(app);
+  window._fsDoc = doc;
+  window._fsGetDoc = getDoc;
+  window._fsSetDoc = setDoc;
+</script>
+  
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>YOURU Creative Community</title>
