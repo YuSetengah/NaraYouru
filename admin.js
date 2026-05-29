@@ -174,12 +174,23 @@ document.addEventListener('DOMContentLoaded', ()=>{
 // ══════════════════════════════════════
 // STORAGE
 // ══════════════════════════════════════
-function getData(key, def){
-  const raw = localStorage.getItem('youru_' + key);
-  return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(def));
+// ── SESUDAH (Firestore) ──
+async function getData(key, def) {
+  try {
+    const snap = await _fsGetDoc(_fsDoc(_db, 'youru', key));
+    return snap.exists() ? snap.data().value : JSON.parse(JSON.stringify(def));
+  } catch {
+    const raw = localStorage.getItem('youru_' + key);
+    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(def));
+  }
 }
-function saveData(key,val){
-  localStorage.setItem('youru_' + key, JSON.stringify(val));
+async function saveData(key, val) {
+  try {
+    await _fsSetDoc(_fsDoc(_db, 'youru', key), { value: val });
+    localStorage.setItem('youru_' + key, JSON.stringify(val)); // cache lokal
+  } catch {
+    localStorage.setItem('youru_' + key, JSON.stringify(val));
+  }
 }
 
 // ══════════════════════════════════════
